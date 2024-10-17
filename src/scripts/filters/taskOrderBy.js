@@ -25,6 +25,8 @@
                 return $filter('orderBy')(array, ['downloadSpeed'], orderType.reverse);
             } else if (orderType.type === 'uspeed') {
                 return $filter('orderBy')(array, ['uploadSpeed'], orderType.reverse);
+            } else if (orderType.type === 'ratio') {
+                return $filter('orderBy')(array, ['shareRatio'], orderType.reverse);
             } else {
                 return array;
             }

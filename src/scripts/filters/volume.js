@@ -52,4 +52,44 @@
             return value + ' ' + unit;
         };
     }]);
+
+    
+    angular.module('ariaNg').filter('readableUnit', ['$filter', function ($filter) {
+        var defaultFractionSize = 2;
+
+        var getAutoFractionSize = function (value) {
+            if (value < 1) {
+                return 2;
+            } else if (value < 10) {
+                return 1;
+            } else {
+                return 0;
+            }
+        };
+
+        return function (value, fractionSize) {
+            var actualFractionSize = defaultFractionSize;
+            var autoFractionSize = false;
+
+            if (angular.isNumber(fractionSize)) {
+                actualFractionSize = fractionSize;
+            } else if (fractionSize === 'auto') {
+                autoFractionSize = true;
+            }
+
+            if (!value) {
+                value = 0;
+            } else if (!angular.isNumber(value)) {
+                value = parseInt(value);
+            }
+
+            if (autoFractionSize) {
+                actualFractionSize = getAutoFractionSize(value);
+            }
+
+            value = $filter('number')(value, actualFractionSize);
+
+            return value;
+        };
+    }]);
 }());
