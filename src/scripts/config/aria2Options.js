@@ -30,7 +30,8 @@
         },
         'log': {
             type: 'string',
-            required: true
+            defaultValue: '',
+            required: false
         },
         'max-concurrent-downloads': {
             type: 'integer',
